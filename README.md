@@ -2,10 +2,6 @@
 
 A Clojure repl environment to generate powerball numbers
 
-## Usage
-
-FIXME
-
 ## License
 
 Copyright © 2025 FIXME
