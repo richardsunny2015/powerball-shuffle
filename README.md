@@ -1,6 +1,18 @@
 # powerball-shuffle
 
-A Clojure repl environment to generate powerball numbers
+A Clojure app to generate powerball numbers
+
+## Usage
+
+Run
+```
+lein run {amount of sets of numbers you want to generate}
+```
+
+Example to generate 5 sets of numbers
+```
+lein run 5
+```
 
 ## License
 

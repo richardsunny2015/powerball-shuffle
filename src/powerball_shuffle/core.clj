@@ -1,4 +1,5 @@
-(ns powerball-shuffle.core)
+(ns powerball-shuffle.core
+  (:require [clojure.pprint :as pprint]))
 
 (defn- choose-numbers
   []
@@ -21,3 +22,9 @@
       numbers
       (let [chosen-numbers (choose-numbers)]
         (recur (conj numbers chosen-numbers))))))
+
+(defn -main
+  [& args]
+  (let [n (Integer/parseInt (first args)) ;; amount of sets of powerball numbers to generate
+        numbers (powerball-numbers n)]
+    (pprint/pprint numbers)))
