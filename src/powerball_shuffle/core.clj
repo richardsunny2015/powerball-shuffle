@@ -1,7 +1,7 @@
 (ns powerball-shuffle.core
   (:require [clojure.string :as str]))
 
-(defn- choose-numbers
+(defn- powerball-numbers
   []
   (let [main-numbers (->> (range 1 70)
                           (shuffle)
@@ -13,20 +13,29 @@
                        (first))]
     (conj main-numbers powerball)))
 
-(defn powerball-numbers
-  "Takes n and returns a list of n set of powerball
-   numbers."
-  [n]
+(defn- lotto-numbers
+  []
+  (->> (range 1 60)
+       (shuffle)
+       (take 6)
+       (sort)))
+
+(defn generate-numbers
+  [number-fn n]
   (loop [numbers []]
     (if (= n (count numbers))
       numbers
-      (let [chosen-numbers (choose-numbers)]
+      (let [chosen-numbers (number-fn)]
         (recur (conj numbers chosen-numbers))))))
 
 (defn -main
   [& args]
   (let [n (Integer/parseInt (first args)) ;; amount of sets of powerball numbers to generate
-        numbers (powerball-numbers n)]
+        type (second args)
+        number-fn (if (= "lotto" type)
+                    lotto-numbers
+                    powerball-numbers)
+        numbers (generate-numbers number-fn n)]
     (doseq [number-set numbers]
       (->> number-set
            (str/join " ")

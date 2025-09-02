@@ -14,6 +14,11 @@ Example to generate 5 sets of numbers
 lein run 5
 ```
 
+Also supports lotto
+```
+lein run 5 lotto
+```
+
 ## License
 
 Copyright © 2025 FIXME
