@@ -1,6 +1,6 @@
 # powerball-shuffle
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure repl environment to generate powerball numbers
 
 ## Usage
 
