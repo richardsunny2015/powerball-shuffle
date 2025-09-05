@@ -32,12 +32,13 @@
   "Reads csv file from PAST_POWERBALL env variable
    and creates a set of previous powerball numbers"
   []
-  (with-open [r (io/reader (System/getenv "PAST_POWERBALL"))]
-    (let [results (-> r
-                      (csv/read-csv)
-                      (csv-data->maps))]
-      (-> (massage-records results)
-          (doall)))))
+  (when-let [past-powerball-file (System/getenv "PAST_POWERBALL")]
+    (with-open [r (io/reader past-powerball-file)]
+      (let [results (-> r
+                        (csv/read-csv)
+                        (csv-data->maps))]
+        (-> (massage-records results)
+            (doall))))))
 
 (def previous-powerball-numbers (read-previous-powerball-numbers))
 
@@ -114,4 +115,5 @@
 (comment 
   
   (count-powerball-frequencies)
+  previous-powerball-numbers
   )
