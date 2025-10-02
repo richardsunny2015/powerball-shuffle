@@ -42,21 +42,29 @@
 
 (def previous-powerball-numbers (read-previous-powerball-numbers))
 
-(defn- powerball-numbers
-  []
-  (let [main-numbers (->> (range 1 70)
+(defn- generate-double-pool-numbers
+  [main-range special-range]
+  (let [main-numbers (->> (range 1 main-range)
                           (shuffle)
                           (take 5)
                           (sort)
                           (vec))
-        powerball (->> (range 1 27)
-                       (shuffle)
-                       (first))
-        numbers (conj main-numbers powerball)
+        special-number (->> (range 1 special-range)
+                            (shuffle)
+                            (first))]
+    (conj main-numbers special-number)))
+
+(defn- powerball-numbers
+  []
+  (let [numbers (generate-double-pool-numbers 70 27)
         previous-number-set (set previous-powerball-numbers)]
     (if-not (contains? previous-number-set numbers)
       numbers
       (println "Generated existing numbers" numbers))))
+
+(defn- mega-million-numbers
+  []
+  (generate-double-pool-numbers 71 25))
 
 (defn- lotto-numbers
   []
@@ -103,8 +111,10 @@
   [& args]
   (let [n (Integer/parseInt (first args)) ;; amount of sets of powerball numbers to generate
         type (second args)
-        number-fn (if (= "lotto" type)
-                    lotto-numbers
+        number-fn (case type
+                    "lotto" lotto-numbers
+                    "powerball" powerball-numbers
+                    "mega-millions" mega-million-numbers
                     powerball-numbers)
         numbers (generate-numbers number-fn n)]
     (doseq [number-set numbers]

@@ -14,9 +14,10 @@ Example to generate 5 sets of numbers
 lein run 5
 ```
 
-Also supports lotto
+Also supports lotto and mega millions
 ```
 lein run 5 lotto
+lein run 5 mega-millions
 ```
 
 ## License
